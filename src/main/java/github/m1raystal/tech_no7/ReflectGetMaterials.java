@@ -1,7 +1,7 @@
 package github.m1raystal.tech_no7;
 
+import github.m1raystal.tech_no7.item.MaterialItem;
 import net.minecraft.item.Item;
-import org.snugbrick.tech_7th.item.MaterialItem;
 
 import java.lang.reflect.Field;
 import java.util.logging.Logger;

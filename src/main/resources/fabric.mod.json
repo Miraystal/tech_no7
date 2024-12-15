@@ -10,6 +10,9 @@
   "icon": "assets/tech_no7/icon.png",
   "environment": "*",
   "entrypoints": {
+    "fabric-datagen": [
+      "github.m1raystal.tech_no7.datagen.DataGen"
+    ],
     "client": [
       "github.m1raystal.tech_no7.client.Tech_no7Client"
     ],
