@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "tech_no7",
+  "version": "${version}",
+  "name": "tech_no7",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/tech_no7/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "github.m1raystal.tech_no7.client.Tech_no7Client"
+    ],
+    "main": [
+      "github.m1raystal.tech_no7.Tech_no7"
+    ]
+  },
+  "mixins": [
+    "tech_no7.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
