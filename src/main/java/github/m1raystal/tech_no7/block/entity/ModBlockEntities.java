@@ -7,7 +7,7 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import github.m1raystal.tech_no7.block.MainBlocks;
+import github.m1raystal.tech_no7.block.ModBlocks;
 
 public class ModBlockEntities {
     public static BlockEntityType<GearSmallBlockEntity> GEAR_SMALL;
@@ -15,6 +15,6 @@ public class ModBlockEntities {
     public static void register() {
         GEAR_SMALL= Registry.register(Registries.BLOCK_ENTITY_TYPE,
                 new Identifier(Tech_no7.MOD_ID,"gear_small"), FabricBlockEntityTypeBuilder.create(
-                        GearSmallBlockEntity::new, MainBlocks.GEAR_SMALL).build());
+                        GearSmallBlockEntity::new, ModBlocks.GEAR_SMALL).build());
     }
 }

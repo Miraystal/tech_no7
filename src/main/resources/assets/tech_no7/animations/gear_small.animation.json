@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"gear_small.model.work": {
+		"right_work": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
@@ -13,6 +13,72 @@
 						"2.0": {
 							"vector": [0, 0, -360]
 						}
+					}
+				}
+			}
+		},
+		"idle": {
+			"loop": true
+		},
+		"left_work": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"rotate": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 360]
+						}
+					}
+				}
+			}
+		},
+		"fix_idle": {
+			"loop": true,
+			"bones": {
+				"rotate": {
+					"position": {
+						"vector": [0, -7, -8]
+					}
+				}
+			}
+		},
+		"fix_left_work": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"rotate": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 360]
+						}
+					},
+					"position": {
+						"vector": [0, -7, -8]
+					}
+				}
+			}
+		},
+		"fix_right_work": {
+			"animation_length": 2,
+			"bones": {
+				"rotate": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, -360]
+						}
+					},
+					"position": {
+						"vector": [0, -7, -8]
 					}
 				}
 			}

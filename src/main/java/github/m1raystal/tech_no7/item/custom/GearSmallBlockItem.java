@@ -32,7 +32,7 @@ public class GearSmallBlockItem extends BlockItem implements GeoItem {
     }
 
     private <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-        tAnimationState.getController().setAnimation(RawAnimation.begin().then("gear_small.model.work", Animation.LoopType.LOOP));
+        tAnimationState.getController().setAnimation(RawAnimation.begin().then("left_work", Animation.LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 

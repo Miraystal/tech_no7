@@ -1,6 +1,6 @@
 package github.m1raystal.tech_no7;
 
-import github.m1raystal.tech_no7.block.MainBlocks;
+import github.m1raystal.tech_no7.block.ModBlocks;
 import github.m1raystal.tech_no7.block.entity.ModBlockEntities;
 import github.m1raystal.tech_no7.group.MainItemGroup;
 import github.m1raystal.tech_no7.item.MaterialItem;
@@ -24,7 +24,7 @@ public class Tech_no7 implements ModInitializer {
 
         MaterialItem.init();
         MainItemGroup.init();
-        MainBlocks.init();
+        ModBlocks.init();
 
         //注册geo方块实体
         ModBlockEntities.register();

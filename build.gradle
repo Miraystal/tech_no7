@@ -29,6 +29,10 @@ repositories {
             includeGroup("com.eliotlash.mclib")
         }
     }
+    maven {
+        name = "DaPorkchop_"
+        url = "https://maven.daporkchop.net/"
+    }
 }
 
 dependencies {
@@ -41,6 +45,9 @@ dependencies {
     // gecko lib
     modImplementation("software.bernie.geckolib:geckolib-fabric-${minecraft_version}:4.3.1")
     implementation("com.eliotlash.mclib:mclib:20")
+
+    // Valkyrie Skies API
+    implementation 'org.valkyrienskies:api:1.0.0.9'
 }
 
 processResources {

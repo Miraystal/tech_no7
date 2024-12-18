@@ -14,7 +14,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 
-public class MainBlocks {
+public class ModBlocks {
     //public static final Block ENGINE_BLOCK = registerBlock("engine_block", new Block(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK)));
     public static final Block GEAR_SMALL = Registry.register(Registries.BLOCK, new Identifier(Tech_no7.MOD_ID, "gear_small"),
             new GearSmallBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
