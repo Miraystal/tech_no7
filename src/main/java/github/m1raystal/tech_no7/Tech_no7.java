@@ -1,7 +1,7 @@
 package github.m1raystal.tech_no7;
 
 import github.m1raystal.tech_no7.block.ModBlocks;
-import github.m1raystal.tech_no7.block.entity.ModBlockEntities;
+import github.m1raystal.tech_no7.block.ModBlockEntities;
 import github.m1raystal.tech_no7.group.MainItemGroup;
 import github.m1raystal.tech_no7.item.MaterialItem;
 import net.fabricmc.api.ModInitializer;

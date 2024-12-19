@@ -2,7 +2,8 @@ package github.m1raystal.tech_no7.item;
 
 import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.block.ModBlocks;
-import github.m1raystal.tech_no7.item.custom.GearSmallBlockItem;
+import github.m1raystal.tech_no7.item.blockitems.GearBigBlockItem;
+import github.m1raystal.tech_no7.item.blockitems.GearSmallBlockItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,8 +30,8 @@ public class MaterialItem {
     public static final Item LODESTONE = register(new Item(new Item.Settings()), "lodestone");
     public static final Item LODESTONE_PLATE = register(new Item(new Item.Settings()), "lodestone_plate");
 
-    //public static final Item GEAR_SMALL_ITEM = register(new Item(new Item.Settings()), "gear_small_item");
     public static final Item GEAR_SMALL_BLOCK_ITEM = register(new GearSmallBlockItem(ModBlocks.GEAR_SMALL, new Item.Settings()), "gear_small");
+    public static final Item GEAR_BIG_BLOCK_ITEM = register(new GearBigBlockItem(ModBlocks.GEAR_BIG, new Item.Settings()), "gear_big");
 
     public static void init() {
     }

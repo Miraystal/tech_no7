@@ -1,4 +1,4 @@
-package github.m1raystal.tech_no7.block.custom;
+package github.m1raystal.tech_no7.block.blocks;
 
 import github.m1raystal.tech_no7.block.entity.GearSmallBlockEntity;
 import net.minecraft.block.*;
@@ -12,11 +12,12 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
+import net.minecraft.world.WorldView;
 import org.jetbrains.annotations.Nullable;
 
 
 public class GearSmallBlock extends BlockWithEntity {
-    public static final DirectionProperty FACING;
+    private static final DirectionProperty FACING;
 
     static {
         FACING = Properties.FACING;
@@ -41,12 +42,30 @@ public class GearSmallBlock extends BlockWithEntity {
     @SuppressWarnings("deprecation")
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
         Direction dir = state.get(FACING);
-        return switch (dir) {
-            case NORTH, SOUTH -> VoxelShapes.cuboid(0.0f, 0.0f, 0.3f, 1.0f, 1.0f, 0.7f);
-            case EAST, WEST -> VoxelShapes.cuboid(0.3f, 0.0f, 0.0f, 0.7f, 1.0f, 1.0f);
-            case UP, DOWN -> VoxelShapes.cuboid(0.0f, 0.3f, 0.0f, 1.0f, 0.7f, 1.0f);
-            default -> VoxelShapes.fullCube();
-        };
+        VoxelShape shape = VoxelShapes.empty();
+        switch (dir) {
+            case NORTH, SOUTH -> {
+                shape = VoxelShapes.union(
+                        VoxelShapes.cuboid(0.0f, 0.0f, 0.4f, 1.0f, 1.0f, 0.6f),
+                        VoxelShapes.cuboid(0.4f, 0.4f, 0.0f, 0.6f, 0.6f, 1.0f)
+                );
+
+            }
+            case EAST, WEST -> {
+                shape = VoxelShapes.union(
+                        VoxelShapes.cuboid(0.4f, 0.0f, 0.0f, 0.6f, 1.0f, 1.0f),
+                        VoxelShapes.cuboid(0.0f, 0.4f, 0.4f, 1.0f, 0.6f, 0.6f)
+                );
+            }
+            case UP, DOWN -> {
+                shape = VoxelShapes.union(
+                        VoxelShapes.cuboid(0.0f, 0.4f, 0.0f, 1.0f, 0.6f, 1.0f),
+                        VoxelShapes.cuboid(0.4f, 0.0f, 0.4f, 0.6f, 1.0f, 0.6f)
+                );
+            }
+            default -> shape = VoxelShapes.fullCube();
+        }
+        return shape;
     }
 
     @Override
@@ -56,21 +75,11 @@ public class GearSmallBlock extends BlockWithEntity {
 
     @Override
     public @Nullable BlockState getPlacementState(ItemPlacementContext ctx) {
-//        BlockState state = super.getPlacementState(ctx);
-//        if (state != null) {
-//            Direction facing = ctx.getHorizontalPlayerFacing().getOpposite();
-//            if (ctx.getPlayerLookDirection().getAxis() == Direction.Axis.Y) {
-//                facing = facing.getOpposite();
-//            }
-//            return state.with(FACING, facing);
-//        }
-//        return this.getDefaultState();
         BlockState state = super.getPlacementState(ctx);
         if (state != null) {
             Direction facing = ctx.getPlayerLookDirection().getOpposite();
             return state.with(FACING, facing);
         }
-        // TODO 向上模型向北偏移 向下模型向南偏移
         return this.getDefaultState();
     }
 }

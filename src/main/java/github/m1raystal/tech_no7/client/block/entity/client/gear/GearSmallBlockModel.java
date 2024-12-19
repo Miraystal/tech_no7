@@ -1,4 +1,4 @@
-package github.m1raystal.tech_no7.client.block.entity.client;
+package github.m1raystal.tech_no7.client.block.entity.client.gear;
 
 import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.block.entity.GearSmallBlockEntity;
