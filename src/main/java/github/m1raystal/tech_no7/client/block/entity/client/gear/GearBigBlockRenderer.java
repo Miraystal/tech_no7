@@ -13,6 +13,6 @@ public class GearBigBlockRenderer extends GeoBlockRenderer<GearBigBlockEntity> {
 
     @Override
     protected void rotateBlock(Direction facing, MatrixStack poseStack) {
-        GearSmallBlockRenderer.fixBlock(facing, poseStack);
+        GearSmallBlockRenderer.fixGearOffset(facing, poseStack);
     }
 }

@@ -15,10 +15,10 @@ public class GearSmallBlockRenderer extends GeoBlockRenderer<GearSmallBlockEntit
 
     @Override
     protected void rotateBlock(Direction facing, MatrixStack poseStack) {
-        fixBlock(facing, poseStack);
+        fixGearOffset(facing, poseStack);
     }
 
-    public static void fixBlock(Direction facing, MatrixStack poseStack) {
+    public static void fixGearOffset(Direction facing, MatrixStack poseStack) {
         switch (facing) {
             case SOUTH -> poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180.0F));
             case WEST -> poseStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(90.0F));

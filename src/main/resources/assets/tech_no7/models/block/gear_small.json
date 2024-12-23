@@ -84,7 +84,7 @@
       ],
       "translation": [
         0,
-        -3.5,
+        -4.25,
         0
       ],
       "scale": [
@@ -102,6 +102,6 @@
     }
   },
   "textures": {
-    "particle": "block/gear_small"
+    "particle": "item/gear_small"
   }
 }

@@ -1,54 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"fix_left_work": {
-			"loop": true,
-			"animation_length": 2,
-			"bones": {
-				"rotate": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, 360]
-						}
-					},
-					"position": {
-						"vector": [0, -7, 8]
-					}
-				}
-			}
-		},
-		"fix_right_work2": {
-			"loop": true,
-			"animation_length": 2,
-			"bones": {
-				"rotate": {
-					"rotation": {
-						"0.0": {
-							"vector": [0, 0, 0]
-						},
-						"2.0": {
-							"vector": [0, 0, -360]
-						}
-					},
-					"position": {
-						"vector": [0, -7, 8]
-					}
-				}
-			}
-		},
-		"fix_idle": {
-			"loop": true,
-			"bones": {
-				"rotate": {
-					"position": {
-						"vector": [0, -7, 8]
-					}
-				}
-			}
-		},
 		"idle": {
 			"loop": true
 		},

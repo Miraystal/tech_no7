@@ -4,6 +4,7 @@ import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.block.ModBlocks;
 import github.m1raystal.tech_no7.item.blockitems.GearBigBlockItem;
 import github.m1raystal.tech_no7.item.blockitems.GearSmallBlockItem;
+import github.m1raystal.tech_no7.item.blockitems.powersource.WaterWheelBlockItem;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,6 +33,7 @@ public class MaterialItem {
 
     public static final Item GEAR_SMALL_BLOCK_ITEM = register(new GearSmallBlockItem(ModBlocks.GEAR_SMALL, new Item.Settings()), "gear_small");
     public static final Item GEAR_BIG_BLOCK_ITEM = register(new GearBigBlockItem(ModBlocks.GEAR_BIG, new Item.Settings()), "gear_big");
+    public static final Item WATER_WHEEL=register(new WaterWheelBlockItem(ModBlocks.WATER_WHEEL, new Item.Settings()),"water_wheel");
 
     public static void init() {
     }

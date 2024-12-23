@@ -3,16 +3,13 @@ package github.m1raystal.tech_no7.block.entity;
 import github.m1raystal.tech_no7.block.ModBlockEntities;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
-import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
-import software.bernie.geckolib.core.animation.AnimationController;
-import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class GearBigBlockEntity extends GearSmallBlockEntity {
-    private final AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    ;
 
     public GearBigBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.GEAR_BIG, pos, state);
@@ -20,11 +17,7 @@ public class GearBigBlockEntity extends GearSmallBlockEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, this::predicate));
-    }
-
-    protected <T extends GeoAnimatable> PlayState predicate(AnimationState<T> tAnimationState) {
-        return super.predicate(tAnimationState);
+        super.registerControllers(controllerRegistrar);
     }
 
     @Override

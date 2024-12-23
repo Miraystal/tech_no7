@@ -3,6 +3,7 @@ package github.m1raystal.tech_no7.block;
 import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.block.blocks.GearBigBlock;
 import github.m1raystal.tech_no7.block.blocks.GearSmallBlock;
+import github.m1raystal.tech_no7.block.blocks.powersource.WaterWheelBlock;
 import github.m1raystal.tech_no7.group.MainItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
@@ -21,6 +22,9 @@ public class ModBlocks {
 
     public static final Block GEAR_BIG = Registry.register(Registries.BLOCK, new Identifier(Tech_no7.MOD_ID, "gear_big"),
             new GearBigBlock(AbstractBlock.Settings.copy(Blocks.IRON_BLOCK).nonOpaque()));
+
+    public static final Block WATER_WHEEL = Registry.register(Registries.BLOCK, new Identifier(Tech_no7.MOD_ID, "water_wheel"),
+            new WaterWheelBlock(AbstractBlock.Settings.copy(Blocks.OAK_WOOD).nonOpaque()));
 
     private static Block registerBlock(String name, Block block) {
         Item returnedItem = registerBlockItem(name, block);

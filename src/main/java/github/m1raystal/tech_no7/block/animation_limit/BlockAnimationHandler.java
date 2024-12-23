@@ -1,10 +1,18 @@
 package github.m1raystal.tech_no7.block.animation_limit;
 
-import github.m1raystal.tech_no7.api.MachineWithStress;
+import github.m1raystal.tech_no7.api.inter.MachineWithStress;
+import github.m1raystal.tech_no7.api.inter.PowerSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimationState;
 
-public class GearAnimationLimit {
+public class BlockAnimationHandler {
+    public static void startAnimateOfPowerSource(PowerSource powerSource, World world, BlockPos pos){
+        if(powerSource.shouldPowering(world, pos)){
+        }
+    }
+
     public static <T extends GeoAnimatable> AnimationState<T> setAnimationLimit(AnimationState<T> tAnimationState, MachineWithStress machine) {
         return setAnimationSpeed(tAnimationState, machine);
     }
