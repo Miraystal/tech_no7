@@ -26,7 +26,7 @@ public class GearBigBlock extends GearSmallBlock {
 
     public GearBigBlock(Settings settings) {
         super(settings);
-        super.setDefaultState(getDefaultState().with(SIX_FACING, Direction.NORTH));
+        super.setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class GearBigBlock extends GearSmallBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-        Direction dir = state.get(SIX_FACING);
+        Direction dir = state.get(FACING);
         VoxelShape shape = VoxelShapes.empty();
         switch (dir) {
             case NORTH, SOUTH -> {
@@ -45,7 +45,6 @@ public class GearBigBlock extends GearSmallBlock {
                         VoxelShapes.cuboid(-0.3f, -0.3f, 0.4f, 1.3f, 1.3f, 0.6f),
                         VoxelShapes.cuboid(0.4f, 0.4f, 0.0f, 0.6f, 0.6f, 1.0f)
                 );
-
             }
             case EAST, WEST -> {
                 shape = VoxelShapes.union(

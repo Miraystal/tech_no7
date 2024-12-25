@@ -1,7 +1,7 @@
 package github.m1raystal.tech_no7.block.animation_limit;
 
-import github.m1raystal.tech_no7.api.inter.MachineWithStress;
-import github.m1raystal.tech_no7.api.inter.PowerSource;
+import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStress;
+import github.m1raystal.tech_no7.api.forBlock.PowerSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;

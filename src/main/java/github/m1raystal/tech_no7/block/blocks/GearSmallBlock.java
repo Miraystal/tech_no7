@@ -1,7 +1,9 @@
 package github.m1raystal.tech_no7.block.blocks;
 
-import github.m1raystal.tech_no7.Tech_no7;
-import github.m1raystal.tech_no7.api.TechBlocksFather;
+import github.m1raystal.tech_no7.api.forBlock.StressMachine;
+import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
+import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStress;
+import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStressBlockEntitiesFather;
 import github.m1raystal.tech_no7.block.entity.GearSmallBlockEntity;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
@@ -20,31 +22,15 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 @SuppressWarnings("deprecation")
-public class GearSmallBlock extends TechBlocksFather {
-    private BlockEntity blockEntity;
-    private int runCount = 0;
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
-    }
-
+public class GearSmallBlock extends StressMachineBlocksFather implements StressMachine {
     public GearSmallBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(SIX_FACING, Direction.NORTH));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        runCount++;
-        BlockEntity currentBlockEntity = new GearSmallBlockEntity(pos, state);
-        if (runCount % 4 == 1 || runCount % 4 == 3) {
-            blockEntity = currentBlockEntity;
-            Tech_no7.LOGGER.info("createddddddddddddddddddddddddddddd createBlockEntity :" + blockEntity.toString());
-        }
-        if (runCount >= 4) {
-            runCount = 0;
-        }
-        return currentBlockEntity;
+        return new GearSmallBlockEntity(pos, state);
     }
 
     @Override
@@ -54,7 +40,7 @@ public class GearSmallBlock extends TechBlocksFather {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-        Direction dir = state.get(SIX_FACING);
+        Direction dir = state.get(FACING);
         VoxelShape shape;
         switch (dir) {
             case NORTH, SOUTH -> {
@@ -83,7 +69,7 @@ public class GearSmallBlock extends TechBlocksFather {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SIX_FACING);
+        builder.add(FACING);
     }
 
     @Override
@@ -91,15 +77,11 @@ public class GearSmallBlock extends TechBlocksFather {
         BlockState state = super.getPlacementState(ctx);
         if (state != null) {
             Direction facing = ctx.getPlayerLookDirection().getOpposite();
-            return state.with(SIX_FACING, facing);
+            return state.with(FACING, facing);
         }
         return this.getDefaultState();
     }
 
-    //@Override
-    //public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-    //this.createBlockEntity(pos, state);
-    //}
 
     @Override
     public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
@@ -114,4 +96,38 @@ public class GearSmallBlock extends TechBlocksFather {
         }
         world.emitGameEvent(GameEvent.BLOCK_DESTROY, pos, GameEvent.Emitter.of(player, state));
     }
+
+    @Override
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
+        BlockEntity theBlockEntity = world.getBlockEntity(pos);
+        MachineWithStressBlockEntitiesFather blockEntity;
+
+        if (theBlockEntity instanceof MachineWithStressBlockEntitiesFather)
+            blockEntity = (MachineWithStressBlockEntitiesFather) theBlockEntity;
+        else return;
+
+        //TODO 编写union 刻不容缓
+        BlockEntity[] facingMachines = this.getFacingMachines(world, pos);
+        // connection
+        if (facingMachines[0] instanceof MachineWithStress theMachine && theMachine.getStress() == 0)
+            theMachine.setStress(blockEntity.getStress());
+        if (facingMachines[1] instanceof MachineWithStress theMachine && theMachine.getStress() == 0)
+            theMachine.setStress(blockEntity.getStress());
+
+        // breaking connection
+        boolean isFacingConnected, isBackConnected;
+        if (facingMachines[0] instanceof MachineWithStress theMachine) {
+            isFacingConnected = true;
+            blockEntity.setStress(theMachine.getStress());
+        } else isFacingConnected = false;
+        if (facingMachines[1] instanceof MachineWithStress theMachine) {
+            isBackConnected = true;
+            blockEntity.setStress(theMachine.getStress());
+        } else isBackConnected = false;
+        if (!isFacingConnected && !isBackConnected) blockEntity.setStress(0);
+
+        // call for update
+        world.updateListeners(pos, state, state, 0);
+    }
+
 }

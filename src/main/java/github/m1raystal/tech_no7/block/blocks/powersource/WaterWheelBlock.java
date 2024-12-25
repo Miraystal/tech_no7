@@ -1,11 +1,9 @@
 package github.m1raystal.tech_no7.block.blocks.powersource;
 
-import github.m1raystal.tech_no7.Tech_no7;
-import github.m1raystal.tech_no7.api.TechBlocksFather;
-import github.m1raystal.tech_no7.api.inter.MachineWithStress;
-import github.m1raystal.tech_no7.api.inter.PowerSource;
+import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
+import github.m1raystal.tech_no7.api.forBlock.PowerSource;
+import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStress;
 import github.m1raystal.tech_no7.block.animation_limit.PowerSourceType;
-import github.m1raystal.tech_no7.block.blocks.GearSmallBlock;
 import github.m1raystal.tech_no7.block.entity.powersource.WaterWheelBlockEntity;
 import github.m1raystal.tech_no7.item.MaterialItem;
 import net.minecraft.block.Block;
@@ -24,42 +22,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class WaterWheelBlock extends TechBlocksFather implements PowerSource {
+public class WaterWheelBlock extends StressMachineBlocksFather implements PowerSource {
     private static final PowerSourceType type = PowerSourceType.WATER_POWER;
-    private BlockEntity blockEntity;
-    private BlockEntity dataBlockEntity;
-    private int runCount = 0;
-
-    public BlockEntity getBlockEntity() {
-        return blockEntity;
-    }
-
-    public BlockEntity getDataBlockEntity() {
-        return dataBlockEntity;
-    }
 
     public WaterWheelBlock(Settings settings) {
         super(settings);
-        setDefaultState(getDefaultState().with(SIX_FACING, Direction.NORTH));
+        setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        runCount++;
-        BlockEntity currentBlockEntity = new WaterWheelBlockEntity(pos, state);
-        if (runCount % 4 == 1 || runCount % 4 == 3) {
-            blockEntity = currentBlockEntity;
-            //Tech_no7.LOGGER.info("createddddddddddddddddddddddddddddd createBlockEntity :" + blockEntity.toString());
-        } else {
-            dataBlockEntity = currentBlockEntity;
-        }
-        if (runCount >= 4) {
-            runCount = 0;
-        }
-        return currentBlockEntity;
-        //blockEntity = new WaterWheelBlockEntity(pos, state);
-        //Tech_no7.LOGGER.info("createddddddddddddddddddddddddddddd WaterWheelBlockEntity :" + blockEntity.toString());
-        //return blockEntity;
+        return new WaterWheelBlockEntity(pos, state);
     }
 
     @Override
@@ -69,7 +42,7 @@ public class WaterWheelBlock extends TechBlocksFather implements PowerSource {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(SIX_FACING);
+        builder.add(FACING);
     }
 
     @Override
@@ -78,7 +51,7 @@ public class WaterWheelBlock extends TechBlocksFather implements PowerSource {
         if (state != null) {
             Direction facing = ctx.getPlayerLookDirection().getOpposite();
             if (Direction.UP.equals(facing) || Direction.DOWN.equals(facing)) return this.getDefaultState();
-            return state.with(SIX_FACING, facing);
+            return state.with(FACING, facing);
         }
         return this.getDefaultState();
     }
@@ -90,27 +63,24 @@ public class WaterWheelBlock extends TechBlocksFather implements PowerSource {
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        // 两个BlockEntity被创建 第一个控制动画 第二个用来控制数据
-        BlockEntity blockEntity = this.getBlockEntity();
-        //BlockEntity blockEntity = this.getDataBlockEntity();
-        WaterWheelBlockEntity trueBlockEntity;
-        if (blockEntity instanceof WaterWheelBlockEntity) trueBlockEntity = (WaterWheelBlockEntity) blockEntity;
+        BlockEntity theBlockEntity = world.getBlockEntity(pos);
+        WaterWheelBlockEntity blockEntity;
+
+        if (theBlockEntity instanceof WaterWheelBlockEntity)
+            blockEntity = (WaterWheelBlockEntity) theBlockEntity;
         else return;
-        if (shouldPowering(world, pos)) trueBlockEntity.setStress(200);
-        else trueBlockEntity.setStress(0);
 
-        if (this.getFacingMachines(world, pos)[0].getBlock() instanceof GearSmallBlock) {
-            //sendPower(((MachineWithStress) ((GearSmallBlock) this.getFacingMachines(world, pos)[0].getBlock()).getBlockEntity()), 200);
-            ((MachineWithStress) ((GearSmallBlock) this.getFacingMachines(world, pos)[0].getBlock()).getBlockEntity()).setStress(200);
-            Tech_no7.LOGGER.info("setttttttttttting GearSmallBlock stress to 200" + (((GearSmallBlock) this.getFacingMachines(world, pos)[0].getBlock()).getBlockEntity()).toString());
-            Tech_no7.LOGGER.info("Poweredddddddddddddddd GearSmallBlock");
-        }
+        if (shouldPowering(world, pos)) blockEntity.setStress(200);
+        else blockEntity.setStress(0);
+
+        if (this.getFacingMachines(world, pos)[0] instanceof MachineWithStress theMachine)
+            theMachine.setStress(blockEntity.getStress());
+        if (this.getFacingMachines(world, pos)[1] instanceof MachineWithStress theMachine)
+            theMachine.setStress(blockEntity.getStress());
+
+        // call for update
+        world.updateListeners(pos, state, state, 0);
     }
-
-//    @Override
-//    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
-//        this.createBlockEntity(pos, state);
-//    }
 
     @Override
     public boolean shouldPowering(World world, BlockPos pos) {
