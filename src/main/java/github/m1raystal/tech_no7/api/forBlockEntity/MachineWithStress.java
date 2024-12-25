@@ -4,4 +4,9 @@ public interface MachineWithStress {
     void setStress(int stress);
 
     int getStress();
+
+//    void setCurrentTick(double tick);
+//
+//    double getCurrentTick();
 }
+

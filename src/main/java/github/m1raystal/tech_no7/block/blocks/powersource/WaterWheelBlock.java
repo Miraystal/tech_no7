@@ -1,8 +1,7 @@
 package github.m1raystal.tech_no7.block.blocks.powersource;
 
-import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
 import github.m1raystal.tech_no7.api.forBlock.PowerSource;
-import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStress;
+import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
 import github.m1raystal.tech_no7.block.animation_limit.PowerSourceType;
 import github.m1raystal.tech_no7.block.entity.powersource.WaterWheelBlockEntity;
 import github.m1raystal.tech_no7.item.MaterialItem;
@@ -73,10 +72,7 @@ public class WaterWheelBlock extends StressMachineBlocksFather implements PowerS
         if (shouldPowering(world, pos)) blockEntity.setStress(200);
         else blockEntity.setStress(0);
 
-        if (this.getFacingMachines(world, pos)[0] instanceof MachineWithStress theMachine)
-            theMachine.setStress(blockEntity.getStress());
-        if (this.getFacingMachines(world, pos)[1] instanceof MachineWithStress theMachine)
-            theMachine.setStress(blockEntity.getStress());
+        sendPower(this.getFacingMachines(world, pos), world, pos, blockEntity.getStress());
 
         // call for update
         world.updateListeners(pos, state, state, 0);

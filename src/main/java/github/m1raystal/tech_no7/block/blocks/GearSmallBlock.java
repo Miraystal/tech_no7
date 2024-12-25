@@ -21,6 +21,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.Iterator;
+
 @SuppressWarnings("deprecation")
 public class GearSmallBlock extends StressMachineBlocksFather implements StressMachine {
     public GearSmallBlock(Settings settings) {
@@ -106,28 +109,22 @@ public class GearSmallBlock extends StressMachineBlocksFather implements StressM
             blockEntity = (MachineWithStressBlockEntitiesFather) theBlockEntity;
         else return;
 
-        //TODO 编写union 刻不容缓
-        BlockEntity[] facingMachines = this.getFacingMachines(world, pos);
-        // connection
-        if (facingMachines[0] instanceof MachineWithStress theMachine && theMachine.getStress() == 0)
-            theMachine.setStress(blockEntity.getStress());
-        if (facingMachines[1] instanceof MachineWithStress theMachine && theMachine.getStress() == 0)
-            theMachine.setStress(blockEntity.getStress());
+        BlockEntity[] machines = this.getFacingMachines(world, pos);
+        if (isBrokenConnection(machines[0], machines[1])) {
+            Iterator<MachineWithStress> iterator = Arrays.stream(machines)
+                    .filter(machine -> machine instanceof MachineWithStress)
+                    .map(machine -> (MachineWithStress) machine)
+                    .filter(machine -> machine.getStress() != 0).iterator();
+            if (iterator.hasNext()) {
+                MachineWithStress next = iterator.next();
+//                setCurrentTick(blockEntity, next);
+                blockEntity.setStress(next.getStress());
+            }
+        } else blockEntity.setStress(0);
+        transferStress(machines, blockEntity.getStress(), blockEntity.getCurrentTick());
 
-        // breaking connection
-        boolean isFacingConnected, isBackConnected;
-        if (facingMachines[0] instanceof MachineWithStress theMachine) {
-            isFacingConnected = true;
-            blockEntity.setStress(theMachine.getStress());
-        } else isFacingConnected = false;
-        if (facingMachines[1] instanceof MachineWithStress theMachine) {
-            isBackConnected = true;
-            blockEntity.setStress(theMachine.getStress());
-        } else isBackConnected = false;
-        if (!isFacingConnected && !isBackConnected) blockEntity.setStress(0);
 
         // call for update
         world.updateListeners(pos, state, state, 0);
     }
-
 }

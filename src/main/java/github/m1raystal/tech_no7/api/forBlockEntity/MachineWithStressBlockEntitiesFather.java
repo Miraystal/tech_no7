@@ -5,15 +5,27 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.util.GeckoLibUtil;
+import software.bernie.geckolib.util.RenderUtils;
 
 public abstract class MachineWithStressBlockEntitiesFather extends BlockEntity implements GeoBlockEntity, MachineWithStress {
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private int stress;
     private RotateDirection rotateDirection;
+//    private double animation;
 
     public MachineWithStressBlockEntitiesFather(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
+        this.setStress(0);
+        this.setRotateDirection(RotateDirection.NONE);
+//        this.setCurrentTick(0.0f);
     }
 
     @Override
@@ -26,9 +38,20 @@ public abstract class MachineWithStressBlockEntitiesFather extends BlockEntity i
         return this.stress;
     }
 
+//    @Override
+//    public double getCurrentTick() {
+//        return this.animation;
+//    }
+//
+//    @Override
+//    public void setCurrentTick(double tick) {
+//        this.animation = tick;
+//    }
+
     @Override
     protected void writeNbt(NbtCompound nbt) {
         nbt.putInt("stress", this.stress);
+//        nbt.putDouble("tick", animation);
         super.writeNbt(nbt);
     }
 
@@ -36,6 +59,7 @@ public abstract class MachineWithStressBlockEntitiesFather extends BlockEntity i
     public void readNbt(NbtCompound nbt) {
         super.readNbt(nbt);
         this.stress = nbt.getInt("stress");
+//        this.animation = nbt.getDouble("tick");
     }
 
     public RotateDirection getRotateDirection() {
@@ -44,5 +68,26 @@ public abstract class MachineWithStressBlockEntitiesFather extends BlockEntity i
 
     public void setRotateDirection(RotateDirection rotateDirection) {
         this.rotateDirection = rotateDirection;
+    }
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+    @Override
+    public double getTick(Object blockEntity) {
+        return RenderUtils.getCurrentTick();
+    }
+
+    @Nullable
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt() {
+        return this.createNbt();
     }
 }
