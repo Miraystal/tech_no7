@@ -1,9 +1,10 @@
 pluginManagement {
     repositories {
+        gradlePluginPortal()
+        // this below is what appears to be missing in your build
         maven {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
-        gradlePluginPortal()
     }
 }

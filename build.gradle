@@ -33,7 +33,15 @@ repositories {
         name = "DaPorkchop_"
         url = "https://maven.daporkchop.net/"
     }
+    maven {
+        name "tterrag maven"
+        url "https://maven.tterrag.com/"
+    }
+
 }
+
+var flywheel_minecraft_version = "1.20.1"
+var flywheel_version = "0.6.11-4"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -46,8 +54,9 @@ dependencies {
     modImplementation("software.bernie.geckolib:geckolib-fabric-${minecraft_version}:4.3.1")
     implementation("com.eliotlash.mclib:mclib:20")
 
-    // Valkyrie Skies API
-    implementation 'org.valkyrienskies:api:1.0.0.9'
+    //flywheel
+    //modImplementation "com.jozufozu.flywheel:flywheel-fabric-${flywheel_minecraft_version}:${flywheel_version}"
+    implementation files('libs/flywheel-fabric-1.20.1-0.6.11-4.jar')
 }
 
 processResources {

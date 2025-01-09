@@ -8,6 +8,15 @@ import net.minecraft.client.util.math.MatrixStack;
 public abstract class MainRenderer<T extends BlockEntity> implements BlockEntityRenderer<T> {
     @Override
     public void render(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay) {
+        if (isInvalid(entity)) return;
 
+        mainRender(entity, tickDelta, matrices, vertexConsumers, light, overlay);
+    }
+
+    //这个渲染器用来渲染模型
+    protected abstract void mainRender(T entity, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int overlay);
+
+    public boolean isInvalid(T be) {
+        return !be.hasWorld() || be.getCachedState().isAir();
     }
 }
