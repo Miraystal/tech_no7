@@ -1,9 +1,6 @@
 package github.m1raystal.tech_no7;
 
-import github.m1raystal.tech_no7.block.ModBlocks;
-import github.m1raystal.tech_no7.block.ModBlockEntities;
 import github.m1raystal.tech_no7.group.MainItemGroup;
-import github.m1raystal.tech_no7.item.MaterialItem;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.LoggerFactory;
 
@@ -18,17 +15,16 @@ public class Tech_no7 implements ModInitializer {
         if (isWorking) {
             LOGGER.info("Seventh Tech initialized successfully!");
         }
+        ReflectGetMaterials.init();
     }
 
     private boolean init() {
-        ReflectGetMaterials.init();//必须最先
-
-        MaterialItem.init();
+        TechItems.init();
         MainItemGroup.init();
-        ModBlocks.init();
+        TechBlocks.init();
 
         //注册geo方块实体
-        ModBlockEntities.register();
+        TechBlockEntities.register();
         return true;
     }
 }

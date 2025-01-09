@@ -1,8 +1,8 @@
 package github.m1raystal.tech_no7.group;
 
+import github.m1raystal.tech_no7.TechItems;
 import github.m1raystal.tech_no7.ReflectGetMaterials;
 import github.m1raystal.tech_no7.Tech_no7;
-import github.m1raystal.tech_no7.item.MaterialItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
@@ -20,12 +20,12 @@ public class MainItemGroup {
     public static final RegistryKey<ItemGroup> CUSTOM_BLOCK_GROUP_KEY = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(Tech_no7.MOD_ID, "block_group"));
 
     private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(MaterialItem.STEEL_INGOT))
+            .icon(() -> new ItemStack(TechItems.STEEL_INGOT))
             .displayName(Text.translatable("itemGroup.tech_7th-item-group"))
             .build();
 
     private static final ItemGroup BLOCK_GROUP = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(MaterialItem.STEEL_PLATE))
+            .icon(() -> new ItemStack(TechItems.STEEL_PLATE))
             .displayName(Text.translatable("itemGroup.tech_7th-block-group"))
             .build();
 

@@ -1,10 +1,10 @@
 package github.m1raystal.tech_no7.block.blocks.powersource;
 
+import github.m1raystal.tech_no7.TechItems;
 import github.m1raystal.tech_no7.api.forBlock.PowerSource;
 import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
 import github.m1raystal.tech_no7.block.animation_limit.PowerSourceType;
 import github.m1raystal.tech_no7.block.entity.powersource.WaterWheelBlockEntity;
-import github.m1raystal.tech_no7.item.MaterialItem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -57,7 +57,7 @@ public class WaterWheelBlock extends StressMachineBlocksFather implements PowerS
 
     @Override
     public List<ItemStack> getDroppedStacks(BlockState state, LootContextParameterSet.Builder builder) {
-        return List.of(new ItemStack(MaterialItem.WATER_WHEEL));
+        return List.of(new ItemStack(TechItems.WATER_WHEEL));
     }
 
     @Override

@@ -14,7 +14,7 @@
       "github.m1raystal.tech_no7.datagen.DataGen"
     ],
     "client": [
-      "github.m1raystal.tech_no7.client.Tech_no7Client"
+      "github.m1raystal.tech_no7.Tech_no7Client"
     ],
     "main": [
       "github.m1raystal.tech_no7.Tech_no7"

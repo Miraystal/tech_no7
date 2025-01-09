@@ -1,11 +1,10 @@
-package github.m1raystal.tech_no7.block.blocks;
+package github.m1raystal.tech_no7.legacy.block;
 
-import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.api.forBlock.StressMachine;
 import github.m1raystal.tech_no7.api.forBlock.StressMachineBlocksFather;
 import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStress;
 import github.m1raystal.tech_no7.api.forBlockEntity.MachineWithStressBlockEntitiesFather;
-import github.m1raystal.tech_no7.block.entity.GearSmallBlockEntity;
+import github.m1raystal.tech_no7.legacy.block.entity.GearSmallBlockEntityUnGeckolib;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.mob.PiglinBrain;
@@ -26,15 +25,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 @SuppressWarnings("deprecation")
-public class GearSmallBlock extends StressMachineBlocksFather implements StressMachine {
-    public GearSmallBlock(Settings settings) {
+public class GearSmallBlockUnGeckolib extends StressMachineBlocksFather implements StressMachine {
+    public GearSmallBlockUnGeckolib(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new GearSmallBlockEntity(pos, state);
+        return new GearSmallBlockEntityUnGeckolib(pos, state);
     }
 
     @Override
@@ -44,9 +43,8 @@ public class GearSmallBlock extends StressMachineBlocksFather implements StressM
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext ctx) {
-        Direction dir = state.get(FACING);
         VoxelShape shape;
-        switch (dir) {
+        switch (state.get(FACING)) {
             case NORTH, SOUTH -> {
                 shape = VoxelShapes.union(
                         VoxelShapes.cuboid(0.0f, 0.0f, 0.4f, 1.0f, 1.0f, 0.6f),
@@ -103,11 +101,10 @@ public class GearSmallBlock extends StressMachineBlocksFather implements StressM
 
     @Override
     public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, BlockPos sourcePos, boolean notify) {
-        BlockEntity theBlockEntity = world.getBlockEntity(pos);
         MachineWithStressBlockEntitiesFather blockEntity;
 
-        if (theBlockEntity instanceof MachineWithStressBlockEntitiesFather)
-            blockEntity = (MachineWithStressBlockEntitiesFather) theBlockEntity;
+        if (world.getBlockEntity(pos) instanceof MachineWithStressBlockEntitiesFather theBlockEntity)
+            blockEntity = theBlockEntity;
         else return;
 
         BlockEntity[] machines = this.getFacingMachines(world, pos);

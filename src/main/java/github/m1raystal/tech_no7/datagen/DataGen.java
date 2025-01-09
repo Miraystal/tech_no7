@@ -1,9 +1,9 @@
 package github.m1raystal.tech_no7.datagen;
 
 import github.m1raystal.tech_no7.ReflectGetMaterials;
+import github.m1raystal.tech_no7.TechItems;
 import github.m1raystal.tech_no7.Tech_no7;
 import github.m1raystal.tech_no7.group.MainItemGroup;
-import github.m1raystal.tech_no7.item.MaterialItem;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -69,17 +69,17 @@ public class DataGen implements DataGeneratorEntrypoint {
         public void generateTranslations(TranslationBuilder translationBuilder) {
             translationBuilder.add("item.tech_7th.steel_ingot.lore","工业的基础");
             translationBuilder.add(MainItemGroup.CUSTOM_ITEM_GROUP_KEY, "第七号科技原材料");
-            translationBuilder.add(MaterialItem.STEEL_INGOT, "钢锭");
-            translationBuilder.add(MaterialItem.STEEL_PLATE, "钢板");
-            translationBuilder.add(MaterialItem.SILVER_INGOT, "银锭");
-            translationBuilder.add(MaterialItem.SILVER_PLATE, "银板");
-            translationBuilder.add(MaterialItem.SILVER_STRING, "银线");
-            translationBuilder.add(MaterialItem.COPPER_PLATE, "铜板");
-            translationBuilder.add(MaterialItem.COPPER_STRING, "铜线");
-            translationBuilder.add(MaterialItem.GOLD_PLATE, "金板");
-            translationBuilder.add(MaterialItem.GOLD_STRING, "金线");
-            translationBuilder.add(MaterialItem.LODESTONE, "磁铁锭");
-            translationBuilder.add(MaterialItem.LODESTONE_PLATE, "磁铁板");
+            translationBuilder.add(TechItems.STEEL_INGOT, "钢锭");
+            translationBuilder.add(TechItems.STEEL_PLATE, "钢板");
+            translationBuilder.add(TechItems.SILVER_INGOT, "银锭");
+            translationBuilder.add(TechItems.SILVER_PLATE, "银板");
+            translationBuilder.add(TechItems.SILVER_STRING, "银线");
+            translationBuilder.add(TechItems.COPPER_PLATE, "铜板");
+            translationBuilder.add(TechItems.COPPER_STRING, "铜线");
+            translationBuilder.add(TechItems.GOLD_PLATE, "金板");
+            translationBuilder.add(TechItems.GOLD_STRING, "金线");
+            translationBuilder.add(TechItems.LODESTONE, "磁铁锭");
+            translationBuilder.add(TechItems.LODESTONE_PLATE, "磁铁板");
         }
     }
 }

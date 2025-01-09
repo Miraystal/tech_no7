@@ -1,6 +1,5 @@
 package github.m1raystal.tech_no7;
 
-import github.m1raystal.tech_no7.item.MaterialItem;
 import net.minecraft.item.Item;
 
 import java.lang.reflect.Field;
@@ -10,7 +9,7 @@ public class ReflectGetMaterials {
     public static Item[] ALL_ITEMS;
 
     public static void init() {
-        Class<MaterialItem> ItemsClass = MaterialItem.class;
+        Class<TechItems> ItemsClass = TechItems.class;
         Field[] ItemsField = ItemsClass.getDeclaredFields();
         ALL_ITEMS = new Item[ItemsField.length];
         for (Field field : ItemsField) {
