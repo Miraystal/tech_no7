@@ -46,8 +46,7 @@ public class TechBlocks {
             entries.add(item);
         });
 
-        return Registry.register(Registries.ITEM, new Identifier(Tech_no7.MOD_ID, name), new BlockItem(block,
-                new Item.Settings()));
+        return item;
     }
 
     public static void init() {

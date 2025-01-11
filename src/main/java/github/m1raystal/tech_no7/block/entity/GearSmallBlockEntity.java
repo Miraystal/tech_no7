@@ -31,25 +31,25 @@ public class GearSmallBlockEntity extends MachineWithStressBlockEntitiesFather {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
         controllerRegistrar.add(new AnimationController<>(this, "work", 0, state -> {
-            {
-                if ((int) state.getAnimationTick() == 100) {
-                    AnimatableManager<GeoAnimatable> managerForId = this.getAnimatableInstanceCache().getManagerForId(this.getPos().hashCode());
-                    double fixedAnimTime = 100.0;
-                    //
-                    //state.animationTick = fixedAnimTime;
-                    double currentTick = this.getTick(this);
-
-                    // 使 animTime 恒定为 fixedAnimTime
-                    double fakeStartTime = currentTick - fixedAnimTime;
-
-                    //
-                    //managerForId.startedAt(RenderUtils.getCurrentTick());
-                    //managerForId.startedAt(fakeStartTime);
-                    managerForId.updatedAt(fakeStartTime);
-
-                    Tech_no7.LOGGER.info(String.valueOf(state.getAnimationTick()));
-                }
-            }
+//            {
+//                if ((int) state.getAnimationTick() == 100) {
+//                    AnimatableManager<GeoAnimatable> managerForId = this.getAnimatableInstanceCache().getManagerForId(this.getPos().hashCode());
+//                    double fixedAnimTime = 100.0;
+//                    //
+//                    //state.animationTick = fixedAnimTime;
+//                    double currentTick = this.getTick(this);
+//
+//                    // 使 animTime 恒定为 fixedAnimTime
+//                    double fakeStartTime = currentTick - fixedAnimTime;
+//
+//                    //
+//                    //managerForId.startedAt(RenderUtils.getCurrentTick());
+//                    //managerForId.startedAt(fakeStartTime);
+//                    managerForId.updatedAt(fakeStartTime);
+//
+//                    Tech_no7.LOGGER.info(String.valueOf(state.getAnimationTick()));
+//                }
+//            }
             if (this.getStress() > 0) {
                 BlockAnimationHandler.setAnimationLimit(state, this).setAndContinue(RawAnimation.begin().thenLoop("left_work"));
                 return PlayState.CONTINUE;
