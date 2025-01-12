@@ -1,6 +1,5 @@
 package github.m1raystal.tech_no7.legacy.gecko_animation;
 
-import github.m1raystal.tech_no7.Tech_no7;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
 import software.bernie.geckolib.cache.object.BakedGeoModel;
@@ -13,8 +12,8 @@ import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.util.RenderUtils;
 
 public abstract class MainModel<T extends GeoAnimatable> extends GeoModel<T> {
-    private final AnimationProcessor<T> processor = new AnimationProcessor(this);
-    private BakedGeoModel currentModel = null;
+    private final AnimationProcessor<T> processor = new AnimationProcessor<>(this);
+    private final BakedGeoModel currentModel = null;
     private double animTime;
     private double lastGameTickTime;
 
@@ -28,9 +27,8 @@ public abstract class MainModel<T extends GeoAnimatable> extends GeoModel<T> {
         Double currentTick = (Double) animationState.getData(DataTickets.TICK);
         if (currentTick == null) {
             double var10000;
-            if (animatable instanceof Entity) {
-                Entity entity = (Entity) animatable;
-                var10000 = (double) entity.age;
+            if (animatable instanceof Entity entity) {
+                var10000 = entity.age;
             } else {
                 var10000 = RenderUtils.getCurrentTick();
             }
@@ -43,12 +41,15 @@ public abstract class MainModel<T extends GeoAnimatable> extends GeoModel<T> {
 
         if (!mc.isPaused() || animatable.shouldPlayAnimsWhileGamePaused()) {
             animatableManager.updatedAt(animatable instanceof Entity ? currentTick + (double) mc.getTickDelta() : currentTick - animatableManager.getFirstTickTime());
+
             double lastUpdateTime = animatableManager.getLastUpdateTime();
             this.animTime += lastUpdateTime - this.lastGameTickTime;
             this.lastGameTickTime = lastUpdateTime;
         }
         //TODO
-        //this.animTime = 10;
+//        this.animTime = 10;
+//        Animation leftWork = this.getAnimation(animatable, "left_work");
+//        double length = leftWork.length();
         animationState.animationTick = this.animTime;
         AnimationProcessor<T> processor = this.getAnimationProcessor();
         processor.preAnimationSetup(animationState.getAnimatable(), this.animTime);

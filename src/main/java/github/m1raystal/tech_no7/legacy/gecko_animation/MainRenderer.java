@@ -17,11 +17,9 @@ import software.bernie.geckolib.cache.object.GeoBone;
 import software.bernie.geckolib.constant.DataTickets;
 import software.bernie.geckolib.core.animatable.GeoAnimatable;
 import software.bernie.geckolib.core.animation.AnimationState;
-import software.bernie.geckolib.core.object.DataTicket;
 import software.bernie.geckolib.model.GeoModel;
 import software.bernie.geckolib.renderer.GeoBlockRenderer;
 
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class MainRenderer<T extends BlockEntity & GeoAnimatable> extends GeoBlockRenderer<T> {
@@ -40,8 +38,7 @@ public abstract class MainRenderer<T extends BlockEntity & GeoAnimatable> extend
             //
             this.model.addAdditionalStateData(animatable, instanceId, animationState::setData);
             this.rotateBlock(this.getFacing(animatable), poseStack);
-            MainModel<T> mainModel = (MainModel<T>) this.model;
-            mainModel.handleAnimations(animatable, instanceId, animationState, false);
+            ((MainModel<T>) this.model).handleAnimations(animatable, instanceId, animationState, false);
         }
 
         this.modelRenderTranslations = new Matrix4f(poseStack.peek().getPositionMatrix());
